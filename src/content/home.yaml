@@ -3,8 +3,12 @@ seo:
     en: Owen Prasimsha | Web Developer
     id: Owen Prasimsha | Web Developer
   description:
-    en: Portfolio of Owen Prasimsha, a freelance web developer working with agencies and businesses.
-    id: Portofolio Owen Prasimsha, web developer freelance untuk agensi dan bisnis.
+    en: >-
+      Portfolio of Owen Prasimsha, a freelance web developer working with
+      agencies and businesses.
+    id: >-
+      Portofolio Owen Prasimsha, web developer freelance untuk agensi dan
+      bisnis.
 nav:
   work:
     en: Work
@@ -24,8 +28,12 @@ hero:
     en: Web developer
     id: Web developer
   subtitle:
-    en: I build clean, well-structured websites with WordPress and Elementor for agencies and businesses.
-    id: Saya membuat website yang rapi dan terstruktur dengan WordPress dan Elementor untuk agensi dan bisnis.
+    en: >-
+      I build clean, well-structured websites with WordPress and Elementor for
+      agencies and businesses.
+    id: >-
+      Saya membuat website yang rapi dan terstruktur dengan WordPress dan
+      Elementor untuk agensi dan bisnis.
   button:
     en: Let's talk
     id: Mari bicara
@@ -38,20 +46,50 @@ skill:
         en: Platforms
         id: Platform
       items:
-        en: [WordPress, Elementor, WooCommerce, Shopify, Webflow, WPML]
-        id: [WordPress, Elementor, WooCommerce, Shopify, Webflow, WPML]
+        en:
+          - WordPress
+          - Elementor
+          - WooCommerce
+          - Shopify
+          - Webflow
+          - WPML
+        id:
+          - WordPress
+          - Elementor
+          - WooCommerce
+          - Shopify
+          - Webflow
+          - WPML
     - label:
         en: Build
         id: Build
       items:
-        en: [React, Astro, PHP, Tailwind CSS, SCSS]
-        id: [React, Astro, PHP, Tailwind CSS, SCSS]
+        en:
+          - React
+          - Astro
+          - PHP
+          - Tailwind CSS
+          - SCSS
+        id:
+          - React
+          - Astro
+          - PHP
+          - Tailwind CSS
+          - SCSS
     - label:
         en: Practice
         id: Praktik
       items:
-        en: [Responsive web design, Website performance, SEO, Figma to WordPress handoff]
-        id: [Responsive web design, Website performance, SEO, Handoff desain Figma ke WordPress]
+        en:
+          - Responsive web design
+          - Website performance
+          - SEO
+          - Figma to WordPress handoff
+        id:
+          - Responsive web design
+          - Website performance
+          - SEO
+          - Handoff desain Figma ke WordPress
 selected:
   label:
     en: Selected projects
@@ -60,8 +98,13 @@ selected:
     en: Work
     id: Karya
   intro:
-    en: '[TEKS: penjelasan singkat selected projects]'
-    id: '[TEKS: penjelasan singkat selected projects]'
+    en: >-
+      A curated selection of my recent web development projects, showcasing
+      functional design, clean code, and seamless user experiences.
+    id: >-
+      Pilihan karya terbaik dari proyek web development terbaru saya, yang
+      menampilkan desain fungsional, clean code, dan pengalaman pengguna (user
+      experience) yang lancar.
   linkLabel:
     en: View project
     id: Lihat proyek
@@ -77,38 +120,96 @@ about:
     en: About
     id: Tentang
   text:
-    en: I'm Owen, a web developer based in Indonesia. I work remotely with agencies and businesses in Indonesia and abroad, turning ideas into websites that look clear and feel easy to use.
-    id: Saya Owen, web developer di Indonesia. Saya bekerja remote dengan agensi dan bisnis di dalam dan luar negeri, mengubah ide menjadi website yang tampil jelas dan nyaman dipakai.
+    en: >-
+      I'm Owen, a web developer based in Indonesia. I work remotely with
+      agencies and businesses in Indonesia and abroad, turning ideas into
+      websites that look clear and feel easy to use.
+    id: >-
+      Saya Owen, web developer di Indonesia. Saya bekerja remote dengan agensi
+      dan bisnis di dalam dan luar negeri, mengubah ide menjadi website yang
+      tampil jelas dan nyaman dipakai.
 services:
   label:
     en: Services
     id: Layanan
   items:
-    - title: {en: Websites, id: Website}
+    - title:
+        en: Websites
+        id: Website
       text:
-        en: Business sites and landing pages, designed and built to be clear, responsive, and easy for you to manage.
-        id: Website bisnis dan landing page yang dirancang dan dibangun agar jelas, responsif, dan mudah Anda kelola.
-      tags: [UI / UX design, Responsive development, CMS setup, Handover]
-    - title: {en: WordPress, id: WordPress}
+        en: >-
+          Business sites and landing pages, designed and built to be clear,
+          responsive, and easy for you to manage.
+        id: >-
+          Website bisnis dan landing page yang dirancang dan dibangun agar
+          jelas, responsif, dan mudah Anda kelola.
+      tags:
+        - UI / UX design
+        - Responsive development
+        - CMS setup
+        - Handover
+    - title:
+        en: WordPress
+        id: WordPress
       text:
-        en: WordPress sites built with Elementor, from new builds to rebuilds of older sites, set up so your team can update content without breaking the layout.
-        id: Website WordPress dengan Elementor, dari pembuatan baru hingga perombakan situs lama, disiapkan agar tim Anda bisa memperbarui konten tanpa merusak tata letak.
-      tags: [Elementor, Theme customization, Redesign, Maintenance]
-    - title: {en: Shopify, id: Shopify}
+        en: >-
+          WordPress sites built with Elementor, from new builds to rebuilds of
+          older sites, set up so your team can update content without breaking
+          the layout.
+        id: >-
+          Website WordPress dengan Elementor, dari pembuatan baru hingga
+          perombakan situs lama, disiapkan agar tim Anda bisa memperbarui konten
+          tanpa merusak tata letak.
+      tags:
+        - Elementor
+        - Theme customization
+        - Redesign
+        - Maintenance
+    - title:
+        en: Shopify
+        id: Shopify
       text:
-        en: Shopify stores set up and customized to match your brand, with product pages that are easy to browse and simple for you to manage.
-        id: Toko Shopify yang disiapkan dan disesuaikan dengan brand Anda, dengan halaman produk yang mudah dijelajahi dan mudah Anda kelola.
-      tags: [Theme customization, Store setup, Product pages, Apps integration]
-    - title: {en: Webflow, id: Webflow}
+        en: >-
+          Shopify stores set up and customized to match your brand, with product
+          pages that are easy to browse and simple for you to manage.
+        id: >-
+          Toko Shopify yang disiapkan dan disesuaikan dengan brand Anda, dengan
+          halaman produk yang mudah dijelajahi dan mudah Anda kelola.
+      tags:
+        - Theme customization
+        - Store setup
+        - Product pages
+        - Apps integration
+    - title:
+        en: Webflow
+        id: Webflow
       text:
-        en: Webflow sites built from your design, with a clean structure and CMS collections your team can edit without touching the layout.
-        id: Website Webflow yang dibangun dari desain Anda, dengan struktur rapi dan koleksi CMS yang bisa diedit tim Anda tanpa menyentuh tata letak.
-      tags: [Design to Webflow, CMS collections, Responsive build, Handover]
-    - title: {en: SEO & Performance, id: SEO & Performa}
+        en: >-
+          Webflow sites built from your design, with a clean structure and CMS
+          collections your team can edit without touching the layout.
+        id: >-
+          Website Webflow yang dibangun dari desain Anda, dengan struktur rapi
+          dan koleksi CMS yang bisa diedit tim Anda tanpa menyentuh tata letak.
+      tags:
+        - Design to Webflow
+        - CMS collections
+        - Responsive build
+        - Handover
+    - title:
+        en: SEO & Performance
+        id: SEO & Performa
       text:
-        en: Making sites faster and easier to find, with clean structure, sensible metadata, and speed improvements.
-        id: Membuat website lebih cepat dan lebih mudah ditemukan lewat struktur yang rapi, metadata yang tepat, dan perbaikan kecepatan.
-      tags: [On-page SEO, Speed optimization, Metadata, Analytics setup]
+        en: >-
+          Making sites faster and easier to find, with clean structure, sensible
+          metadata, and speed improvements.
+        id: >-
+          Membuat website lebih cepat dan lebih mudah ditemukan lewat struktur
+          yang rapi, metadata yang tepat, dan perbaikan kecepatan.
+      tags:
+        - On-page SEO
+        - Speed optimization
+        - Metadata
+        - Analytics setup
 cta:
   label:
     en: Contact
