@@ -50,3 +50,4 @@ kamu eksekutor. Jangan mengambil keputusan desain di luar `docs/design.md`.
   rasio sesuai desain. Dilarang memakai stok foto atau gambar generate untuk menggantikan karya asli.
 - Saat menambahkan aset baru, beri nama deskriptif (`nama-proyek-cover.jpg`) dan tanyakan alt text-nya kepada saya.
 - Animasi/efek berat (GSAP, WebGL, smooth scroll) tidak dipakai kecuali saya minta eksplisit.
+- Motion yang diizinkan diatur di bagian Motion di docs/design.md. Efek berat dan library animasi tetap hanya dengan izin eksplisit.
