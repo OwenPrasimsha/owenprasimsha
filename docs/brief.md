@@ -51,9 +51,9 @@ Referensi: https://mikewilcockdesign.com/ Yang saya suka: animasi interaktif saa
 
 Detail:
 
-Yang bergerak: hover pada card portfolio, link menu/navigasi, tombol (termasuk kontak), dan gambar portfolio; reveal hero saat halaman dibuka; reveal saat scroll dengan satu pola konsisten; ticker.
+Yang bergerak: hover pada card portfolio, link menu/navigasi, tombol (termasuk kontak), dan gambar portfolio; reveal hero saat halaman dibuka; reveal saat scroll dengan satu pola konsisten; kursor custom yang berubah konteks; tombol magnetik; roll pada link; pin slider More work (GSAP, diizinkan).
 Gerakan halus dan singkat, tidak mengganggu pembacaan, menghormati prefers-reduced-motion.
-Yang dihindari: parallax berat, scroll-jacking, animasi berulang tanpa henti (kecuali ticker), kursor custom.
+Yang dihindari: parallax berat, scroll-jacking (kecuali pin More work), animasi berulang tanpa henti, ticker/marquee.
 Aturan: layout dan komponen dibangun dulu tanpa animasi. Animasi ditambahkan di langkah terpisah, CSS dulu, JS ringan tanpa library. Library animasi hanya dengan izin eksplisit. Detail durasi/easing di docs/design.md bagian Motion.
 Untuk menyelidiki teknik animasi dari URL referensi: hanya jenis motion di atas, jangan menyalin kode.
 

@@ -42,6 +42,7 @@ Foto: 3 file di src/assets/portfolio/.
    ID: Proyek Tiga / ... [nanti saya ganti dari CMS, skrng placeholder text dlu]
 
 - Tautan tiap card: link eksternal. Label tautan EN: View project / ID: Lihat proyek
+- Label kursor saat hover card EN: Look / ID: Lihat
 
 ## Portfolio (slider gambar)
 

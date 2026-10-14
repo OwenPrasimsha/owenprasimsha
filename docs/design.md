@@ -37,6 +37,7 @@ Status: palet A dan 2 font sudah disetujui.
 |---|---|---|---|
 | `display` | clamp(3.5rem, 15vw, 11rem) | Archivo 800, wdth 80, lh 0.88, tracking -0.02em, uppercase | Nama di hero, "LET'S TALK" |
 | `h1` | clamp(2.25rem, 6vw, 4.5rem) | Archivo 700, wdth 85, lh 1.0 | Judul proyek di Selected Projects |
+| `lead` | clamp(2rem, 5vw, 3.75rem) | Archivo 700, lh 1.08 | Teks About |
 | `h2` | clamp(1.75rem, 4vw, 3rem) | Archivo 600, lh 1.1 | Paragraf besar "Tentang saya" |
 | `h3` | 1.375rem | Archivo 600, lh 1.2 | Judul layanan |
 | `body` | 1rem (16px) | Geist 400, lh 1.6 | Teks umum |
@@ -101,8 +102,8 @@ Dasar: brief meminta "hasil tidak terlihat seperti template" dan "studio desain 
 - Bayangan lembut + sudut membulat besar di card (kesan template SaaS).
 - Angka atau klaim yang tidak ada di `content.md` (jumlah klien, tahun pengalaman, testimoni).
 - Logo/ikon buatan — wordmark teks "Owen Prasimsha" saja, Archivo 700.
-- Menyalin langsung ref1: ticker boleh (lihat bagian 9) tetapi tidak meniru ticker italic ref1 ("Build • Motion • Shopify"), dan tidak menyalin kode animasi.
-- Parallax berat, scroll-jacking (scroll dibajak/diperlambat), animasi berulang tanpa henti (kecuali ticker, lihat bagian 9), dan kursor custom.
+- Menyalin langsung ref1: tidak memakai ticker/marquee, dan tidak menyalin kode animasi (kursor & hover boleh terinspirasi perilakunya, lihat bagian 9).
+- Parallax berat, scroll-jacking (kecuali pin slider More work, lihat bagian 9), animasi berulang tanpa henti, dan ticker/marquee.
 
 ---
 
@@ -114,7 +115,15 @@ Dasar: brief bagian Motion (ref mikewilcockdesign.com: "animasi interaktif saat 
 - **Hover:** card portfolio (garis tepi `line` → `signal`, lihat bagian 6), link navigasi, tombol (termasuk tombol kontak), gambar portfolio (zoom halus maks `scale(1.03)` di dalam bingkai).
 - **Reveal hero:** sekali saat halaman dibuka. Wordmark/display dan teks hero muncul berurutan.
 - **Reveal saat scroll:** satu pola untuk seluruh situs: `opacity 0 → 1` + `translateY(16px → 0)`. Diputar sekali per elemen, tanpa variasi arah atau efek lain.
-- **Ticker:** satu baris teks berjalan horizontal, linear, berhenti saat di-hover.
+- **Kursor custom** (hanya `pointer: fine`): titik 6px `paper` + lingkaran 36px bergaris `paper` yang mengikuti dengan sedikit tertinggal. Di atas link/tombol: lingkaran mengecil, garis `signal`. Di atas card proyek / foto slider: bulatan `signal` 88px, teks `ink` = label tautan proyek dari CMS.
+- **Tombol magnetik:** tombol tertarik ke arah kursor maks 6px.
+- **Roll pada link** navigasi & footer: teks bergulir ke atas diganti salinannya (salinan `aria-hidden`).
+- **Huruf kinetik** pada "Owen Prasimsha" (hero) dan "Let's talk" (CTA): huruf dekat kursor melebar (`font-stretch` 80% → maks 110%, radius 220px, lerp 0.15). Teks asli tetap untuk pembaca layar.
+- **Card proyek:** tanpa garis hover. Saat hover, foto "keluar dari bingkai" menjadi preview mengambang (22rem, 4:3) yang mengikuti kursor (lerp 0.12, miring maks 8°); kursor = bulatan `signal` berlabel dari CMS (`cursorLabel`, EN "Look" / ID "Lihat").
+- **Card layanan:** saat hover latar menjadi `signal`, semua teks dan garis tag menjadi `ink`.
+- **Teks About (scroll text reveal):** ukuran `lead`. Section di-pin (GSAP, izin eksplisit) selama kata menyala dari `stone` ke `paper` berurutan; scroll baru lanjut setelah kalimat terakhir.
+- **Scroll halus** untuk tautan dalam halaman (mis. "Back to top"): `scroll-behavior: smooth`.
+- **Pin slider More work** (GSAP ScrollTrigger, izin eksplisit): section di-pin sampai slide terakhir; tanpa JS / reduced motion = scroll-snap native.
 
 ### Durasi & easing
 | Token | Nilai | Pemakaian |
@@ -124,13 +133,13 @@ Dasar: brief bagian Motion (ref mikewilcockdesign.com: "animasi interaktif saat 
 | `duration-reveal` | 600ms | Reveal hero & scroll |
 | `stagger` | 80ms | Jeda antar elemen di reveal hero |
 | `ease-out` | `cubic-bezier(0.22, 1, 0.36, 1)` | Semua hover & reveal |
-| `ease-linear` | `linear` | Ticker saja |
+| `cursor-lerp` | 0.15 / frame | Lingkaran kursor mengikuti titik |
 
 ### Aksesibilitas
-- Wajib `@media (prefers-reduced-motion: reduce)`: reveal dimatikan (konten langsung tampil), ticker berhenti (statis), hover hanya berubah warna tanpa gerak/scale.
+- Wajib `@media (prefers-reduced-motion: reduce)`: reveal dimatikan (konten langsung tampil), pin slider mati, kursor custom & tombol magnetik mati (kursor native kembali), hover hanya berubah warna tanpa gerak/scale.
 - Konten tidak boleh tersembunyi kalau JS gagal: status awal "tersembunyi" hanya dipasang lewat class dari JS.
 
 ### Aturan teknis
-- CSS lebih dulu (transition, `@keyframes`). JS ringan hanya untuk memicu reveal saat scroll (`IntersectionObserver`, tanpa library).
+- CSS lebih dulu (transition, `@keyframes`). JS ringan tanpa library untuk reveal saat scroll (`IntersectionObserver`), kursor custom, dan tombol magnetik.
 - Hanya animasikan `transform` dan `opacity` (plus `color`/`border-color` untuk hover).
-- Tanpa library animasi (GSAP, Framer Motion, Lenis, dll.) kecuali ada izin eksplisit.
+- Tanpa library animasi (GSAP, Framer Motion, Lenis, dll.) kecuali ada izin eksplisit. Pengecualian yang sudah diizinkan: GSAP ScrollTrigger untuk pin slider More work dan pin teks About.
