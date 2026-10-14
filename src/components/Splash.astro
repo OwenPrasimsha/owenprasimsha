@@ -1,0 +1,50 @@
+---
+// Splash sebelum homepage (sekali per sesi browser). Hanya tampil bila html punya .splash-active
+// (dipasang skrip inline di Base.astro), jadi tanpa JS / reduced motion halaman langsung tampil.
+interface Props { title: string; role: string }
+const { title, role } = Astro.props;
+const words = title.split(" ");
+const offsets = words.map((_, i) => words.slice(0, i).join("").length);
+---
+<div class="splash" data-splash aria-hidden="true">
+  <div class="splash-inner">
+    <p class="font-display text-display splash-title">
+      {words.map((w, wi) => (
+        <>{wi > 0 && " "}<span class="inline-block whitespace-nowrap">{[...w].map((c, ci) => <span class="splash-letter" style={`--i:${offsets[wi] + ci}`}>{c}</span>)}</span></>
+      ))}
+    </p>
+    <div class="splash-meta">
+      <span class="label">{role}</span>
+      <span class="label" data-splash-count>000</span>
+    </div>
+    <div class="splash-bar"><span data-splash-bar></span></div>
+  </div>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const splash = document.querySelector<HTMLElement>("[data-splash]");
+  const bar = document.querySelector<HTMLElement>("[data-splash-bar]");
+  const count = document.querySelector<HTMLElement>("[data-splash-count]");
+
+  if (root.classList.contains("splash-active") && splash && bar && count) {
+    const DURATION = 1600;
+    const t0 = performance.now();
+    const step = (now: number) => {
+      const p = Math.min(1, (now - t0) / DURATION);
+      const eased = 1 - Math.pow(1 - p, 3);
+      bar.style.transform = `scaleX(${eased})`;
+      count.textContent = String(Math.round(eased * 100)).padStart(3, "0");
+      if (p < 1) return requestAnimationFrame(step);
+      splash.classList.add("is-leaving");
+      splash.addEventListener("transitionend", () => {
+        root.classList.remove("splash-active");
+        splash.remove();
+      }, { once: true });
+    };
+    requestAnimationFrame(step);
+    try { sessionStorage.setItem("splash-seen", "1"); } catch {}
+  } else {
+    splash?.remove();
+  }
+</script>

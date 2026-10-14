@@ -1,0 +1,15 @@
+---
+// Teks display yang hurufnya melebar dekat kursor (design.md §9).
+// Teks asli untuk pembaca layar; huruf pecahan aria-hidden. Logika gerak di Cursor.astro.
+interface Props { text: string; as?: "h1" | "p"; class?: string; [key: string]: unknown }
+const { text, as: Tag = "p", class: cls = "", ...rest } = Astro.props;
+const words = text.split(" ");
+---
+<Tag class={cls} {...rest}>
+  <span class="sr-only">{text}</span>
+  <span aria-hidden="true" data-kinetic>
+    {words.map((w, i) => (
+      <>{i > 0 && " "}<span class="inline-block whitespace-nowrap">{[...w].map((c) => <span data-k class="inline-block">{c}</span>)}</span></>
+    ))}
+  </span>
+</Tag>

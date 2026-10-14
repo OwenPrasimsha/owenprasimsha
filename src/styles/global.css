@@ -16,6 +16,8 @@
   --text-display--letter-spacing: -0.02em;
   --text-h1: clamp(2.25rem, 6vw, 4.5rem);
   --text-h1--line-height: 1;
+  --text-lead: clamp(2rem, 5vw, 3.75rem);
+  --text-lead--line-height: 1.08;
   --text-h2: clamp(1.75rem, 4vw, 3rem);
   --text-h2--line-height: 1.1;
   --text-h3: 1.375rem;
@@ -62,3 +64,120 @@
 }
 
 html { background: var(--color-ink); color: var(--color-paper); font-family: var(--font-body); }
+
+/* ---------- Motion (design.md §9) ---------- */
+:root {
+  --duration-reveal: 600ms;
+  --stagger: 80ms;
+  --reveal-distance: 16px;
+}
+
+html { scroll-behavior: auto; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(var(--reveal-distance)); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Reveal saat halaman dibuka: CSS saja, urutan lewat --i */
+  [data-intro] {
+    animation: reveal var(--duration-reveal) var(--ease-out-soft) backwards;
+    animation-delay: calc(var(--i, 0) * var(--stagger));
+  }
+
+  /* Scroll reveal: status tersembunyi hanya aktif bila JS memasang .js-reveal */
+  .js-reveal [data-reveal]:not(.is-in) { opacity: 0; }
+  .js-reveal [data-reveal].is-in {
+    animation: reveal var(--duration-reveal) var(--ease-out-soft) backwards;
+    animation-delay: calc(var(--i, 0) * var(--stagger));
+  }
+}
+
+/* Roll pada link: teks bergulir ke atas saat hover */
+.roll { display: inline-block; overflow: hidden; vertical-align: bottom; height: 1.25em; line-height: 1.25; }
+.roll-inner { display: flex; flex-direction: column; }
+@media (prefers-reduced-motion: no-preference) {
+  .roll-inner { transition: transform var(--duration-base) var(--ease-out-soft); }
+  a:hover > .roll .roll-inner, a:focus-visible > .roll .roll-inner { transform: translateY(-50%); }
+}
+
+/* Kursor custom: tersembunyi kecuali JS memasang .has-cursor */
+.cursor { display: none; }
+.has-cursor, .has-cursor * { cursor: none !important; }
+.has-cursor .cursor { display: block; }
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0; z-index: 100; pointer-events: none;
+  opacity: 0; transition: opacity var(--duration-base) var(--ease-out-soft);
+}
+.cursor-visible .cursor-dot, .cursor-visible .cursor-ring { opacity: 1; }
+.cursor-dot {
+  width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 9999px; background: var(--color-paper);
+}
+.cursor-ring { width: 0; height: 0; }
+.cursor-ring::before {
+  content: ""; position: absolute; left: 0; top: 0;
+  width: 36px; height: 36px; translate: -50% -50%; border-radius: 9999px;
+  border: 1px solid var(--color-paper);
+  transition: width var(--duration-base) var(--ease-out-soft), height var(--duration-base) var(--ease-out-soft),
+    background-color var(--duration-base) var(--ease-out-soft), border-color var(--duration-base) var(--ease-out-soft);
+}
+.cursor-ring[data-state="link"]::before { width: 24px; height: 24px; border-color: var(--color-signal); }
+.cursor-ring[data-state="view"]::before { width: 88px; height: 88px; background: var(--color-signal); border-color: var(--color-signal); }
+.cursor-label {
+  position: absolute; left: 0; top: 0; translate: -50% -50%; width: 72px; text-align: center;
+  color: var(--color-ink); line-height: 1.2; opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out-soft);
+}
+.cursor-ring[data-state="view"] .cursor-label { opacity: 1; }
+.cursor-ring[data-state="view"] ~ .cursor-dot { opacity: 0; }
+[data-magnetic] { transition: transform var(--duration-base) var(--ease-out-soft), color var(--duration-fast), background-color var(--duration-fast), border-color var(--duration-fast); }
+
+/* Preview gambar card proyek yang mengikuti kursor */
+.float-preview {
+  position: fixed; top: 0; left: 0; z-index: 90; pointer-events: none;
+  width: 22rem; margin: -8.25rem 0 0 -11rem;
+}
+.float-preview img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card);
+  opacity: 0; scale: 0.6;
+  transition: opacity var(--duration-base) var(--ease-out-soft), scale var(--duration-reveal) var(--ease-out-soft);
+}
+.float-preview.is-active img { opacity: 1; scale: 1; }
+.has-cursor .is-lifted [data-float-src] { opacity: 0; }
+
+/* Teks About: kata demi kata menjadi paper saat digulir */
+.js-words [data-words] span { color: var(--color-stone); transition: color var(--duration-fast) linear; }
+.js-words [data-words] span.is-lit { color: var(--color-paper); }
+
+/* Splash: hanya tampil saat html.splash-active */
+.splash { display: none; }
+.splash-active { overflow: hidden; }
+.splash-active .splash {
+  display: flex; position: fixed; inset: 0; z-index: 200;
+  background: var(--color-ink); color: var(--color-paper);
+  padding: 0 var(--spacing-gutter);
+  align-items: center;
+  transition: transform 800ms var(--ease-out-soft);
+}
+@media (min-width: 64rem) { .splash-active .splash { padding: 0 var(--spacing-gutter-lg); } }
+.splash.is-leaving { transform: translateY(-100%); }
+.splash-inner { width: 100%; max-width: var(--container-site); margin: 0 auto; }
+.splash-letter {
+  display: inline-block; font-stretch: 62%; opacity: 0;
+  animation: splash-letter 900ms var(--ease-out-soft) forwards;
+  animation-delay: calc(var(--i) * 40ms);
+}
+@keyframes splash-letter {
+  from { opacity: 0; font-stretch: 62%; transform: translateY(var(--reveal-distance)); }
+  60% { font-stretch: 100%; }
+  to { opacity: 1; font-stretch: 80%; transform: none; }
+}
+.splash-meta { display: flex; justify-content: space-between; margin-top: 1.5rem; }
+.splash-bar { margin-top: 0.75rem; height: 1px; background: var(--color-line); }
+.splash-bar span { display: block; height: 100%; background: var(--color-signal); transform: scaleX(0); transform-origin: left; }
+/* Animasi intro hero ditahan sampai splash selesai */
+.splash-active [data-intro] { animation-play-state: paused; }

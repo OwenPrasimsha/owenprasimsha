@@ -10,6 +10,15 @@ const { title, description, lang = "en" } = Astro.props;
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <script is:inline>
+    // Splash sekali per sesi; dilewati bila reduced motion atau storage tak tersedia
+    try {
+      if (!sessionStorage.getItem("splash-seen") && matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+        document.documentElement.classList.add("splash-active");
+      }
+    } catch (e) {}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet" />

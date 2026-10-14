@@ -1,0 +1,6 @@
+---
+// Teks link yang bergulir ke atas saat hover (design.md §9). Salinan kedua aria-hidden.
+interface Props { text: string }
+const { text } = Astro.props;
+---
+<span class="roll"><span class="roll-inner"><span>{text}</span><span aria-hidden="true">{text}</span></span></span>

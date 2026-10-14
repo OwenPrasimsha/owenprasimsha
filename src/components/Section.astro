@@ -2,8 +2,9 @@
 // Baris spec sheet V2: label bernomor di kiri (3/12), konten di kanan (9/12).
 // labelAs: "h2" (default) atau "p" bila section sudah punya heading sendiri (mis. hero dengan h1).
 // Slot "aside": isi tambahan di kolom kiri, menempel saat digulir di desktop.
-interface Props { label: string; index?: number; id?: string; labelId?: string; labelAs?: "h2" | "p"; class?: string; [key: string]: unknown }
-const { label, index, id, labelId, labelAs = "h2", class: cls = "", ...rest } = Astro.props;
+interface Props { label: string; index?: number; id?: string; labelId?: string; labelAs?: "h2" | "p"; intro?: number; class?: string; [key: string]: unknown }
+// intro: urutan reveal saat halaman dibuka untuk label (hanya hero)
+const { label, index, id, labelId, labelAs = "h2", intro, class: cls = "", ...rest } = Astro.props;
 const num = index !== undefined ? `(${String(index).padStart(2, "0")}) ` : "";
 const Label = labelAs;
 const hasAside = Astro.slots.has("aside");
@@ -16,7 +17,7 @@ const hasAside = Astro.slots.has("aside");
 >
   <div class="lg:col-span-3">
     <div class:list={[hasAside && "lg:sticky lg:top-8"]}>
-      <Label id={labelId} class="label">{num}{label}</Label>
+      <Label id={labelId} class="label" data-intro={intro !== undefined ? "" : undefined} style={intro !== undefined ? `--i:${intro}` : undefined}>{num}{label}</Label>
       <slot name="aside" />
     </div>
   </div>

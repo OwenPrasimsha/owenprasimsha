@@ -10,5 +10,6 @@ const styles = {
 <a
   href={href}
   {...(external ? { target: "_blank", rel: "noopener" } : {})}
-  class:list={["label rounded-full px-6 h-10 inline-flex items-center gap-2 transition-colors duration-(--duration-fast) ease-out-soft", styles[variant], cls]}
+  data-magnetic
+  class:list={["label rounded-full px-6 h-10 inline-flex items-center gap-2", styles[variant], cls]}
 ><slot /> <span aria-hidden="true">→</span></a>

@@ -1,0 +1,99 @@
+---
+// Kursor custom (design.md §9): titik + lingkaran yang mengikuti dengan lerp.
+// Aktif hanya untuk pointer: fine tanpa reduced motion; kursor native disembunyikan lewat .has-cursor.
+---
+<div class="cursor" aria-hidden="true">
+  <div class="float-preview" data-float><img alt="" data-float-img /></div>
+  <div class="cursor-ring" data-cursor-ring><span class="cursor-label label" data-cursor-text></span></div>
+  <div class="cursor-dot" data-cursor-dot></div>
+</div>
+
+<script>
+  const mq = matchMedia("(pointer: fine) and (prefers-reduced-motion: no-preference)");
+  const ring = document.querySelector<HTMLElement>("[data-cursor-ring]");
+  const dot = document.querySelector<HTMLElement>("[data-cursor-dot]");
+  const label = document.querySelector<HTMLElement>("[data-cursor-text]");
+
+  if (mq.matches && ring && dot && label) {
+    const root = document.documentElement;
+    root.classList.add("has-cursor");
+    const LERP = 0.15;
+    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+
+    addEventListener("pointermove", (e) => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
+      root.classList.add("cursor-visible");
+    });
+    document.addEventListener("pointerleave", () => root.classList.remove("cursor-visible"));
+
+    // Preview gambar card proyek: "keluar dari bingkai" dan mengikuti kursor
+    const float = document.querySelector<HTMLElement>("[data-float]");
+    const floatImg = document.querySelector<HTMLImageElement>("[data-float-img]");
+    let fx = mx, fy = my, liftedCard: HTMLElement | null = null;
+    const FLOAT_LERP = 0.12, MAX_TILT = 8;
+
+    document.querySelectorAll<HTMLElement>("[data-float-card]").forEach((card) => {
+      const src = card.querySelector<HTMLImageElement>("[data-float-src]");
+      card.addEventListener("pointerenter", (e) => {
+        if (!float || !floatImg || !src) return;
+        floatImg.src = src.currentSrc || src.src;
+        if (!liftedCard) { fx = e.clientX; fy = e.clientY; }
+        liftedCard = card; card.classList.add("is-lifted"); float.classList.add("is-active");
+      });
+      card.addEventListener("pointerleave", () => {
+        card.classList.remove("is-lifted");
+        if (liftedCard === card) { liftedCard = null; float?.classList.remove("is-active"); }
+      });
+    });
+
+    // Huruf display melebar dekat kursor (font-stretch 80% → maks 110%)
+    const letters = Array.from(document.querySelectorAll<HTMLElement>("[data-k]")).map((el) => ({ el, v: 80 }));
+    const RADIUS = 220, BASE = 80, WIDEST = 110;
+
+    const tick = () => {
+      rx += (mx - rx) * LERP; ry += (my - ry) * LERP;
+      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+
+      if (float) {
+        const dx = mx - fx;
+        fx += dx * FLOAT_LERP; fy += (my - fy) * FLOAT_LERP;
+        const tilt = Math.max(-MAX_TILT, Math.min(MAX_TILT, dx * 0.08));
+        float.style.transform = `translate3d(${fx}px, ${fy}px, 0) rotate(${tilt}deg)`;
+      }
+
+      for (const l of letters) {
+        const r = l.el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) continue;
+        const d = Math.hypot(mx - (r.left + r.width / 2), my - (r.top + r.height / 2));
+        const target = BASE + Math.max(0, 1 - d / RADIUS) * (WIDEST - BASE);
+        if (Math.abs(target - l.v) < 0.05) continue;
+        l.v += (target - l.v) * 0.15;
+        l.el.style.fontStretch = `${l.v.toFixed(1)}%`;
+      }
+      requestAnimationFrame(tick);
+    };
+    tick();
+
+    // Status kursor sesuai elemen di bawahnya
+    document.addEventListener("pointerover", (e) => {
+      const t = e.target as Element;
+      const view = t.closest<HTMLElement>("[data-cursor='view']");
+      const link = t.closest("a, button");
+      ring.dataset.state = view ? "view" : link ? "link" : "";
+      label.textContent = view?.dataset.cursorLabel ?? "";
+    });
+
+    // Tombol magnetik: maks 6px ke arah kursor
+    const MAX = 6;
+    document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {
+      el.addEventListener("pointermove", (e) => {
+        const r = el.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width - 0.5) * 2 * MAX;
+        const y = ((e.clientY - r.top) / r.height - 0.5) * 2 * MAX;
+        el.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      el.addEventListener("pointerleave", () => { el.style.transform = ""; });
+    });
+  }
+</script>

@@ -1,0 +1,9 @@
+title: Project One
+cover: /src/assets/portfolio/by-hannah/cover.webp
+category:
+  en: Category
+  id: Kategori
+year: Year
+description:
+  en: One sentence on what you built.
+  id: Satu kalimat tentang yang dikerjakan.

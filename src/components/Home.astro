@@ -1,0 +1,214 @@
+---
+// Homepage untuk satu bahasa. Teks dari Keystatic (src/content/), dibaca saat build.
+import { createReader } from "@keystatic/core/reader";
+import keystaticConfig from "../../keystatic.config";
+import type { ImageMetadata } from "astro";
+import Base from "../layouts/Base.astro";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import Button from "./Button.astro";
+import Section from "./Section.astro";
+import Card from "./Card.astro";
+import Cursor from "./Cursor.astro";
+import Kinetic from "./Kinetic.astro";
+import Splash from "./Splash.astro";
+import { Image } from "astro:assets";
+
+interface Props { lang: "en" | "id" }
+const { lang } = Astro.props;
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const home = await reader.singletons.home.readOrThrow();
+const entries = await reader.collections.portfolio.all();
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/portfolio/**/*.{jpg,jpeg,png,webp,avif}", { eager: true });
+
+const contact = {
+  email: home.contact.email,
+  phone: home.contact.phone,
+  whatsapp: home.contact.whatsappUrl ?? "",
+  location: home.contact.location[lang],
+  social: [
+    { label: "LinkedIn", href: home.contact.linkedin },
+    { label: "GitHub", href: home.contact.github },
+  ].filter((s): s is { label: string; href: string } => !!s.href),
+};
+const meta = { title: home.seo.title[lang], description: home.seo.description[lang] };
+const nav = [
+  { label: home.nav.work[lang], href: "#work" },
+  { label: home.nav.about[lang], href: "#about" },
+  { label: home.nav.services[lang], href: "#services" },
+  { label: home.nav.contact[lang], href: "#contact" },
+];
+const hero = { title: home.hero.title, role: home.hero.role[lang], subtitle: home.hero.subtitle[lang], button: home.hero.button[lang] };
+const projects = entries
+  .filter((e) => images[e.entry.cover])
+  .map((e) => ({
+    title: e.entry.title,
+    meta: [e.entry.category[lang], e.entry.year].filter(Boolean).join(" / "),
+    text: e.entry.description[lang],
+    image: images[e.entry.cover].default,
+    alt: e.entry.title,
+    href: e.entry.link || "#",
+  }));
+// Sementara: foto diduplikasi jadi 2x sampai item portfolio bertambah
+const moreWork = [...projects, ...projects];
+const about = home.about.text[lang];
+const skillGroups = home.skill.groups.map((g) => ({ label: g.label[lang], items: g.items[lang] }));
+const services = home.services.items.map((s) => ({ title: s.title[lang], text: s.text[lang], tags: [...s.tags] }));
+const cta = { title: home.cta.title[lang], text: home.cta.text[lang] };
+const languages = [
+  { label: "EN", href: "/", current: lang === "en" },
+  { label: "ID", href: "/id/", current: lang === "id" },
+];
+---
+<Base title={meta.title} description={meta.description} lang={lang}>
+  <Splash title={hero.title} role={hero.role} />
+  <Header nav={nav} languages={languages} />
+
+  <main>
+    <Section label={contact.location} index={1} labelAs="p" intro={3}>
+      <Kinetic as="h1" text={hero.title} data-intro style="--i:4" class="font-display text-display" />
+      <div class="mt-8 grid md:grid-cols-9 gap-6">
+        <p data-intro style="--i:5" class="md:col-span-3 font-title text-h3">{hero.role}</p>
+        <p data-intro style="--i:6" class="md:col-span-4 text-stone">{hero.subtitle}</p>
+        <div data-intro style="--i:7" class="md:col-span-2 md:justify-self-end">
+          <Button href={contact.whatsapp} external>{hero.button}</Button>
+        </div>
+      </div>
+    </Section>
+
+    <Section id="work" label={`${home.selected.label[lang]} — ${String(projects.length).padStart(2, "0")}`} index={2} labelId="work-label">
+      <Fragment slot="aside">
+        <p class="font-title text-h1 mt-6">{home.selected.heading[lang]}</p>
+        <p class="mt-4 text-stone max-w-sm">{home.selected.intro[lang]}</p>
+      </Fragment>
+      <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
+        {projects.map((p, i) => (
+          <Card {...p} index={i + 1} total={projects.length} linkLabel={home.selected.linkLabel[lang]} cursorLabel={home.selected.cursorLabel[lang]} />
+        ))}
+      </div>
+    </Section>
+
+    <Section id="about" label={home.about.label[lang]} index={3} labelId="about-label" data-words-section>
+      <p class="font-title text-lead" data-words>{about.split(" ").map((w, i) => <>{i > 0 && " "}<span>{w}</span></>)}</p>
+    </Section>
+
+    <Section label={home.skill.label[lang]} index={4} labelId="skill-label">
+      <dl>
+        {skillGroups.map((g) => (
+          <div class="grid md:grid-cols-9 gap-2 md:gap-4 border-b border-line py-4 first:pt-0">
+            <dt class="label md:col-span-2 pt-1">{g.label}</dt>
+            <dd class="md:col-span-7">{g.items.join(" / ")}</dd>
+          </div>
+        ))}
+      </dl>
+    </Section>
+
+    <Section id="services" label={home.services.label[lang]} index={5} labelId="services-label">
+      <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
+        {services.map((s, i) => <Card variant="service" {...s} index={i + 1} />)}
+      </div>
+    </Section>
+
+    <!-- More work: tanpa JS / reduced motion = scroll-snap native; dengan GSAP = section di-pin sampai slide terakhir -->
+    <Section label={home.moreWork.label[lang]} index={6} labelId="more-label" data-slider>
+      <div data-slider-viewport class="overflow-x-auto snap-x snap-mandatory overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div data-slider-track class="flex gap-4 w-max">
+          {moreWork.map((p) => (
+            <figure data-slider-item data-cursor="view" class="group snap-start shrink-0 w-[75vw] md:w-88 overflow-hidden rounded-card">
+              <Image src={p.image} alt={p.alt} class="w-full aspect-[4/5] object-cover rounded-card motion-safe:transition-transform motion-safe:duration-(--duration-base) ease-out-soft motion-safe:group-hover:scale-103" />
+            </figure>
+          ))}
+        </div>
+      </div>
+    </Section>
+
+    <Section id="contact" label={home.cta.label[lang]} index={7} labelId="contact-label">
+      <Kinetic text={cta.title} class="font-display text-display" />
+      <p class="mt-6 text-stone">{cta.text}</p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <Button href={contact.whatsapp} external>{home.cta.whatsapp[lang]}</Button>
+        <Button href={`mailto:${contact.email}`} variant="secondary">{home.cta.email[lang]}</Button>
+      </div>
+    </Section>
+  </main>
+
+  <Cursor />
+
+  <Footer email={contact.email} phone={contact.phone} whatsapp={contact.whatsapp} social={contact.social} backToTop={home.footer.backToTop[lang]} />
+
+  <script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Scroll reveal: satu pola untuk semua section (kecuali More work yang di-pin).
+    // Per section: kolom label, lalu isi; grid card & baris skill dipecah per item (jeda 80ms).
+    if (matchMedia("(prefers-reduced-motion: no-preference)").matches && "IntersectionObserver" in window) {
+      const items: HTMLElement[] = [];
+      document.querySelectorAll<HTMLElement>("main > section:not(:first-child):not([data-slider])").forEach((section) => {
+        const [labelCol, contentCol] = Array.from(section.children) as HTMLElement[];
+        const grid = contentCol?.querySelector<HTMLElement>(":scope > .grid, :scope > dl");
+        const group = [labelCol, ...(grid ? Array.from(grid.children) as HTMLElement[] : [contentCol])];
+        group.forEach((el, i) => { el.dataset.reveal = ""; el.style.setProperty("--i", String(Math.min(i, 5))); items.push(el); });
+      });
+      document.documentElement.classList.add("js-reveal");
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+      }, { rootMargin: "0px 0px -10% 0px" });
+      items.forEach((el) => io.observe(el));
+    }
+
+    // Teks About: section di-pin, kata menyala berurutan sampai kalimat terakhir, lalu scroll lanjut
+    const words = document.querySelector<HTMLElement>("[data-words]");
+    const wordsSection = document.querySelector<HTMLElement>("[data-words-section]");
+    if (words && wordsSection) {
+      gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
+        const spans = Array.from(words.querySelectorAll("span"));
+        document.documentElement.classList.add("js-words");
+        const trigger = ScrollTrigger.create({
+          trigger: wordsSection,
+          start: "center center",
+          end: () => `+=${Math.round(innerHeight * 1.2)}`,
+          pin: true,
+          scrub: true,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const lit = Math.round(self.progress * spans.length);
+            spans.forEach((s, i) => s.classList.toggle("is-lit", i < lit));
+          },
+        });
+        return () => { trigger.kill(); document.documentElement.classList.remove("js-words"); };
+      });
+    }
+
+    // Trigger dibuat tidak urut halaman (slider lebih dulu): urutkan ulang agar jarak pin benar
+    // More work: section di-pin, track bergeser horizontal sampai slide terakhir
+    const section = document.querySelector<HTMLElement>("[data-slider]");
+    const viewport = section?.querySelector<HTMLElement>("[data-slider-viewport]");
+    const track = section?.querySelector<HTMLElement>("[data-slider-track]");
+
+    if (section && viewport && track) {
+      gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
+        viewport.style.overflow = "hidden";
+        const distance = () => track.scrollWidth - viewport.clientWidth;
+        gsap.to(track, {
+          x: () => -distance(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "center center",
+            end: () => `+=${distance()}`,
+            pin: true,
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        });
+        return () => { viewport.style.overflow = ""; };
+      });
+    }
+
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
+  </script>
+</Base>

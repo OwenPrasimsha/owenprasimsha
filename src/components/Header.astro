@@ -1,14 +1,19 @@
 ---
 // Header V2: wordmark (3/12), nav (6/12), pengalih bahasa (3/12).
-interface Props { nav: { label: string; href: string }[]; lang?: string }
-const { nav, lang = "EN / ID" } = Astro.props;
+interface Props { nav: { label: string; href: string }[]; languages?: { label: string; href: string; current: boolean }[] }
+const { nav, languages = [] } = Astro.props;
+import Roll from "./Roll.astro";
 ---
 <header class="grid grid-cols-2 lg:grid-cols-12 gap-8 py-6 items-center">
-  <a href="#" class="lg:col-span-3 font-title text-small">Owen Prasimsha</a>
-  <nav aria-label="Main" class="hidden lg:flex lg:col-span-6 gap-8">
+  <a href="#" data-intro style="--i:0" class="lg:col-span-3 font-title text-small">Owen Prasimsha</a>
+  <nav aria-label="Main" data-intro style="--i:1" class="hidden lg:flex lg:col-span-6 gap-8">
     {nav.map((l) => (
-      <a href={l.href} class="label text-paper transition-colors duration-(--duration-fast) hover:text-signal">{l.label}</a>
+      <a href={l.href} class="label text-paper transition-colors duration-(--duration-fast) hover:text-signal"><Roll text={l.label} /></a>
     ))}
   </nav>
-  <span class="lg:col-span-3 justify-self-end label">{lang}</span>
+  <span data-intro style="--i:2" class="lg:col-span-3 justify-self-end label">
+    {languages.map((l, i) => (
+      <>{i > 0 && " / "}<a href={l.href} hreflang={l.label.toLowerCase()} aria-current={l.current ? "page" : undefined} class="transition-colors duration-(--duration-fast) hover:text-signal">{l.label}</a></>
+    ))}
+  </span>
 </header>
