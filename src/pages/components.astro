@@ -1,0 +1,101 @@
+---
+// Katalog komponen dasar (bukan halaman publik).
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Button from "../components/Button.astro";
+import Section from "../components/Section.astro";
+import Card from "../components/Card.astro";
+import hannah from "../assets/portfolio/by-hannah-cover.webp";
+import luz from "../assets/portfolio/luz-dental-care-cover.webp";
+
+const nav = [
+  { label: "Work", href: "#work" },
+  { label: "About", href: "#about" },
+  { label: "Services", href: "#services" },
+  { label: "Contact", href: "#contact" },
+];
+const colors = [
+  { name: "ink", cls: "bg-ink" },
+  { name: "paper", cls: "bg-paper" },
+  { name: "stone", cls: "bg-stone" },
+  { name: "line", cls: "bg-line" },
+  { name: "signal", cls: "bg-signal" },
+];
+const type = [
+  { name: "display", cls: "font-display text-display" },
+  { name: "h1", cls: "font-title text-h1" },
+  { name: "h2", cls: "font-title text-h2" },
+  { name: "h3", cls: "font-title text-h3" },
+  { name: "body", cls: "text-body" },
+  { name: "small", cls: "text-small" },
+  { name: "label", cls: "label" },
+];
+---
+<html lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Components</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Geist:wght@100..900&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-ink text-paper font-body text-body">
+<div class="mx-auto max-w-site px-gutter lg:px-gutter-lg">
+
+  <Header nav={nav} />
+
+  <Section label="Tokens — color" index={1} labelId="c-colors">
+    <ul class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      {colors.map((c) => (
+        <li>
+          <div class={`aspect-square rounded-card border border-line ${c.cls}`}></div>
+          <p class="label mt-2">{c.name}</p>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <Section label="Tokens — type" index={2} labelId="c-type">
+    <ul class="flex flex-col gap-6">
+      {type.map((t) => (
+        <li class="border-b border-line pb-4">
+          <p class="label mb-2">{t.name}</p>
+          <p class={t.cls}>Owen Prasimsha</p>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <Section label="Button" index={3} labelId="c-button">
+    <div class="flex flex-wrap gap-4">
+      <Button href="https://wa.me/6281227418327" external>Let's talk</Button>
+      <Button href="https://wa.me/6281227418327" external>WhatsApp</Button>
+      <Button href="mailto:owenprasimsha84@gmail.com" variant="secondary">Email</Button>
+    </div>
+  </Section>
+
+  <Section label="Card" index={4} labelId="c-card">
+    <div class="grid sm:grid-cols-2 gap-4 lg:gap-6">
+      <Card image={hannah} alt="[ALT: by-hannah-cover]" title="Project One" meta="Category / Year" text="One sentence on what you built." href="#" linkLabel="View project" index={1} total={3} />
+      <Card image={luz} alt="[ALT: luz-dental-care-cover]" title="Project Two" meta="Category / Year" text="[TEKS: deskripsi singkat proyek dua]" href="#" linkLabel="View project" index={2} total={3} />
+    </div>
+  </Section>
+
+  <Section label="Section (label kiri, konten kanan)" index={5} labelId="c-section">
+    <p class="font-title text-h2">[TEKS: isi section]</p>
+  </Section>
+
+  <Footer
+    email="owenprasimsha84@gmail.com"
+    phone="081227418327"
+    whatsapp="https://wa.me/6281227418327"
+    social={[
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/owen-prasimsha/" },
+      { label: "GitHub", href: "https://github.com/OwenPrasimsha" },
+    ]}
+    backToTop="Back to top"
+  />
+</div>
+</body>
+</html>

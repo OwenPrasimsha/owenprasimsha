@@ -1,0 +1,14 @@
+---
+// Tombol pill (design.md §5). primary = latar signal, secondary = outline.
+interface Props { href: string; variant?: "primary" | "secondary"; external?: boolean; class?: string }
+const { href, variant = "primary", external = false, class: cls = "" } = Astro.props;
+const styles = {
+  primary: "bg-signal text-ink",
+  secondary: "border border-paper text-paper hover:border-signal hover:text-signal",
+};
+---
+<a
+  href={href}
+  {...(external ? { target: "_blank", rel: "noopener" } : {})}
+  class:list={["label rounded-full px-6 h-10 inline-flex items-center gap-2 transition-colors duration-(--duration-fast) ease-out-soft", styles[variant], cls]}
+><slot /> <span aria-hidden="true">→</span></a>

@@ -10,11 +10,11 @@
 ## Hero
 
 - EN judul: Owen Prasimsha
-- EN peran: Web designer & WordPress developer
+- EN peran: Web developer
 - EN subjudul: I build clean, well-structured websites with WordPress and Elementor for agencies and businesses.
 - EN tombol: Let's talk
 - ID judul: Owen Prasimsha
-- ID peran: Web designer & developer WordPress
+- ID peran: Web developer
 - ID subjudul: Saya membuat website yang rapi dan terstruktur dengan WordPress dan Elementor untuk agensi dan bisnis.
 - ID tombol: Mari bicara
 
@@ -22,20 +22,13 @@
 
 Daftar singkat, tanpa bar persentase atau badge.
 
-- react JS
-- PHP
-- WooCommerce
-- Shopify
-- WPML
-- SCSS
-- Tailwind
-- WordPress
-- Elementor
-- Responsive web design
-- Website performance
-- SEO
-- Handoff desain ke website (Figma ke WordPress)
-- Astro
+Tiga kelompok (label kelompok EN / ID):
+
+- Platforms / Platform: WordPress, Elementor, WooCommerce, Shopify, Webflow, WPML
+- Build / Build: React, Astro, PHP, Tailwind CSS, SCSS
+- Practice / Praktik:
+  - EN: Responsive web design, Website performance, SEO, Figma to WordPress handoff
+  - ID: Responsive web design, Website performance, SEO, Handoff desain Figma ke WordPress
 
 ## Selected projects (3 card dari koleksi portfolio)
 
@@ -57,9 +50,9 @@ Foto: 3 file di src/assets/portfolio/.
 
 ## Tentang
 
-- EN: I'm Owen, a web designer and developer based in Indonesia. I work remotely with agencies and businesses in Indonesia and abroad, turning ideas into websites that look clear and feel easy to use.
+- EN: I'm Owen, a web developer based in Indonesia. I work remotely with agencies and businesses in Indonesia and abroad, turning ideas into websites that look clear and feel easy to use.
 - EN tambahan:
-- ID: Saya Owen, web designer dan developer di Indonesia. Saya bekerja remote dengan agensi dan bisnis di dalam dan luar negeri, mengubah ide menjadi website yang tampil jelas dan nyaman dipakai.
+- ID: Saya Owen, web developer di Indonesia. Saya bekerja remote dengan agensi dan bisnis di dalam dan luar negeri, mengubah ide menjadi website yang tampil jelas dan nyaman dipakai.
 - ID tambahan:
 
 ## Layanan
@@ -76,7 +69,17 @@ kategori. Tiap item: nomor, judul besar, deskripsi, dan 3-4 tag pendek.
    - ID: Website WordPress dengan Elementor, dari pembuatan baru hingga perombakan situs lama, disiapkan agar tim Anda bisa memperbarui konten tanpa merusak tata letak.
    - Tag: Elementor, Theme customization, Redesign, Maintenance
 
-3. SEO & Performance / SEO & Performa
+3. Shopify / Shopify
+   - EN: Shopify stores set up and customized to match your brand, with product pages that are easy to browse and simple for you to manage.
+   - ID: Toko Shopify yang disiapkan dan disesuaikan dengan brand Anda, dengan halaman produk yang mudah dijelajahi dan mudah Anda kelola.
+   - Tag: Theme customization, Store setup, Product pages, Apps integration
+
+4. Webflow / Webflow
+   - EN: Webflow sites built from your design, with a clean structure and CMS collections your team can edit without touching the layout.
+   - ID: Website Webflow yang dibangun dari desain Anda, dengan struktur rapi dan koleksi CMS yang bisa diedit tim Anda tanpa menyentuh tata letak.
+   - Tag: Design to Webflow, CMS collections, Responsive build, Handover
+
+5. SEO & Performance / SEO & Performa
    - EN: Making sites faster and easier to find, with clean structure, sensible metadata, and speed improvements.
    - ID: Membuat website lebih cepat dan lebih mudah ditemukan lewat struktur yang rapi, metadata yang tepat, dan perbaikan kecepatan.
    - Tag: On-page SEO, Speed optimization, Metadata, Analytics setup
@@ -105,7 +108,7 @@ kategori. Tiap item: nomor, judul besar, deskripsi, dan 3-4 tag pendek.
 
 ## SEO (meta)
 
-- EN title: Owen Prasimsha | Web Designer & WordPress Developer
-- EN description: Portfolio of Owen Prasimsha, a freelance web designer and WordPress developer working with agencies and businesses.
-- ID title: Owen Prasimsha | Web Designer & Developer WordPress
-- ID description: Portofolio Owen Prasimsha, web designer dan developer WordPress freelance untuk agensi dan bisnis.
+- EN title: Owen Prasimsha | Web Developer
+- EN description: Portfolio of Owen Prasimsha, a freelance web developer working with agencies and businesses.
+- ID title: Owen Prasimsha | Web Developer
+- ID description: Portofolio Owen Prasimsha, web developer freelance untuk agensi dan bisnis.

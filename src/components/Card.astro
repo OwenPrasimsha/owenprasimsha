@@ -1,0 +1,41 @@
+---
+// Card (design.md §5–6): sudut 2px, garis 1px, tanpa bayangan; hover garis → signal.
+// variant "project": foto 4:3 (scale 1.03 saat hover), meta, tautan eksternal.
+// variant "service": nomor, judul, deskripsi, tag.
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+interface Props {
+  variant?: "project" | "service";
+  title: string; text: string; index: number; total?: number;
+  image?: ImageMetadata; alt?: string; meta?: string; href?: string; linkLabel?: string;
+  tags?: string[];
+}
+const { variant = "project", title, text, index, total, image, alt = "", meta, href, linkLabel, tags = [] } = Astro.props;
+const pad = (v: number) => String(v).padStart(2, "0");
+const base = "group border border-line rounded-card transition-colors duration-(--duration-base) ease-out-soft hover:border-signal focus-within:border-signal";
+---
+{variant === "project" ? (
+  <article class={`${base} p-4`}>
+    {image && (
+      <div class="overflow-hidden rounded-card">
+        <Image src={image} alt={alt} class="w-full aspect-[4/3] object-cover motion-safe:transition-transform motion-safe:duration-(--duration-base) ease-out-soft motion-safe:group-hover:scale-103" />
+      </div>
+    )}
+    <div class="mt-4 flex justify-between gap-4">
+      <span class="label text-paper">{pad(index)}{total && ` / ${pad(total)}`}</span>
+      {meta && <span class="label">{meta}</span>}
+    </div>
+    <h3 class="font-title text-h3 mt-3">{title}</h3>
+    <div class="mt-3 flex flex-col gap-4">
+      <p class="text-small text-stone">{text}</p>
+      {href && <a href={href} target="_blank" rel="noopener" class="label text-paper transition-colors duration-(--duration-fast) hover:text-signal">{linkLabel} ↗</a>}
+    </div>
+  </article>
+) : (
+  <article class={`${base} p-6 flex flex-col gap-4 sm:min-h-80`}>
+    <span class="label">{pad(index)}</span>
+    <h3 class="font-title text-h2">{title}</h3>
+    <p class="text-small text-stone">{text}</p>
+    {tags.length > 0 && <ul class="mt-auto pt-4 flex flex-wrap gap-2">{tags.map((t) => <li class="label border border-line rounded-full px-3 py-1">{t}</li>)}</ul>}
+  </article>
+)}

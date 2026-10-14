@@ -1,0 +1,15 @@
+---
+// Footer V2: © di kolom label, tautan kontak di kolom konten.
+interface Props { email: string; phone: string; whatsapp: string; social: { label: string; href: string }[]; backToTop: string }
+const { email, phone, whatsapp, social, backToTop } = Astro.props;
+const link = "label transition-colors duration-(--duration-fast) hover:text-signal";
+---
+<footer class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 border-t border-line py-6">
+  <span class="label lg:col-span-3">© Owen Prasimsha</span>
+  <div class="lg:col-span-9 flex flex-wrap gap-6 justify-between">
+    <a href={`mailto:${email}`} class={link}>{email}</a>
+    <a href={whatsapp} class={link}>{phone}</a>
+    <span class="label">{social.map((s, i) => <>{i > 0 && " · "}<a href={s.href} class="hover:text-signal">{s.label}</a></>)}</span>
+    <a href="#" class={`${link} text-paper`}>{backToTop} ↑</a>
+  </div>
+</footer>

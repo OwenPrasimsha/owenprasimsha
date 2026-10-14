@@ -1,0 +1,14 @@
+---
+// Header V2: wordmark (3/12), nav (6/12), pengalih bahasa (3/12).
+interface Props { nav: { label: string; href: string }[]; lang?: string }
+const { nav, lang = "EN / ID" } = Astro.props;
+---
+<header class="grid grid-cols-2 lg:grid-cols-12 gap-8 py-6 items-center">
+  <a href="#" class="lg:col-span-3 font-title text-small">Owen Prasimsha</a>
+  <nav aria-label="Main" class="hidden lg:flex lg:col-span-6 gap-8">
+    {nav.map((l) => (
+      <a href={l.href} class="label text-paper transition-colors duration-(--duration-fast) hover:text-signal">{l.label}</a>
+    ))}
+  </nav>
+  <span class="lg:col-span-3 justify-self-end label">{lang}</span>
+</header>
