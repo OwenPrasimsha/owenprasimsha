@@ -1,9 +1,14 @@
-title: Project Three
+title: Skincosmedic
 cover: /src/assets/portfolio/skincosmedic/cover.webp
 category:
-  en: Category
-  id: Kategori
-year: Year
+  en: Shopify
+  id: Shopify
+year: '2026'
 description:
-  en: '[TEKS: deskripsi singkat proyek tiga]'
-  id: '[TEKS: deskripsi singkat proyek tiga]'
+  en: >-
+    A Shopify e-commerce experience with gift cards, custom page layouts,
+    product cards, and email marketing integration.
+  id: >-
+    Pengalaman e-commerce Shopify yang dilengkapi fitur gift card, layout
+    halaman kustom, product card, dan integrasi email marketing.
+link: https://skincosmedic.ch/
