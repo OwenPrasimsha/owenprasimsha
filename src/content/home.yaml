@@ -93,7 +93,7 @@ skill:
 selected:
   label:
     en: Selected projects
-    id: '[TEKS: label selected projects ID]'
+    id: Proyek Pilihan
   heading:
     en: Work
     id: Karya
