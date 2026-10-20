@@ -1,9 +1,14 @@
-title: Project One
+title: By Hannah
 cover: /src/assets/portfolio/by-hannah/cover.webp
 category:
-  en: Category
-  id: Kategori
-year: Year
+  en: Web App
+  id: Web App
+year: '2025'
 description:
-  en: One sentence on what you built.
-  id: Satu kalimat tentang yang dikerjakan.
+  en: >-
+    A visual identity and modern one-page website for a coaching practice,
+    designed in Figma and implemented in WordPress.
+  id: >-
+    Identitas visual dan website satu halaman modern untuk layanan coaching,
+    didesain di Figma dan diimplementasikan di WordPress.
+link: https://by-hannah.de/

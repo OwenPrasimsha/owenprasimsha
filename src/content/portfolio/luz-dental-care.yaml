@@ -1,9 +1,14 @@
-title: Project Two
+title: Luz Dental Care
 cover: /src/assets/portfolio/luz-dental-care/cover.webp
 category:
-  en: Category
-  id: Kategori
-year: Year
+  en: E-Commerce
+  id: E-Commerce
+year: '2025'
 description:
-  en: '[TEKS: deskripsi singkat proyek dua]'
-  id: '[TEKS: deskripsi singkat proyek dua]'
+  en: >-
+    An international WooCommerce shop with product catalog, checkout,
+    multilingual layouts, and a friendly customer experience.
+  id: >-
+    Toko online WooCommerce internasional yang dilengkapi katalog produk, fitur
+    checkout, tampilan multibahasa, dan pengalaman pelanggan yang nyaman.
+link: https://luzdentalcare.com/
