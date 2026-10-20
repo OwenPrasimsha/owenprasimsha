@@ -115,9 +115,9 @@ const languages = [
       <div data-slider-viewport class="overflow-x-auto snap-x snap-mandatory overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div data-slider-track class="flex gap-4 w-max">
           {moreWork.map((p) => (
-            <figure data-slider-item data-cursor="view" class="group snap-start shrink-0 w-[75vw] md:w-88 overflow-hidden rounded-card">
+            <a href={p.href} target="_blank" rel="noopener" data-slider-item data-cursor="view" data-cursor-label={home.selected.cursorLabel[lang]} class="group block snap-start shrink-0 w-[75vw] md:w-88 overflow-hidden rounded-card">
               <Image src={p.image} alt={p.alt} class="w-full aspect-[4/5] object-cover rounded-card motion-safe:transition-transform motion-safe:duration-(--duration-base) ease-out-soft motion-safe:group-hover:scale-103" />
-            </figure>
+            </a>
           ))}
         </div>
       </div>
